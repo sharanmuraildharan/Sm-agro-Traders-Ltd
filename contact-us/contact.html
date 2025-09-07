@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - SM Agro Trades Ltd</title>
+  <link rel="stylesheet" href="style-contact.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon"><img src="/img/logo.png" alt="logo"></div>
+        <span>SM Agro Trades</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/INDEX.html">Home</a></li>
+        <li><a href="/about/About.html">About</a></li>
+        <li><a href="/our-mission/our-mission.html">Mission</a></li>
+        <li><a href="/products/product-index.html">Products</a></li>
+        <li><a href="/contact-us/contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-contact">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>Contact Us</h1>
+        <p class="hero-subtitle">Get in Touch for Premium Soy Products</p>
+        <p class="hero-description">Ready to enhance your feed quality? Contact our team for product inquiries, quotes, and technical support.</p>
+        <div class="breadcrumb">
+          <a href="index.html">Home</a> / <span>Contact</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-wrapper">
+        <!-- Contact Information -->
+        <div class="contact-info">
+          <h2>Get In Touch</h2>
+          <p class="contact-description">
+            We're here to help you find the perfect soy products for your needs. Whether you're a farmer, feed manufacturer, or distributor, our team is ready to assist you.
+          </p>
+
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="contact-icon">
+                <span>📧</span>
+              </div>
+              <div class="method-details">
+                <h3>Email Us</h3>
+                <p>info.smagrotrader@gmail.com</p>
+                <span class="response-time">Response within 2 hours</span>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-icon">
+                <span>💬</span>
+              </div>
+              <div class="method-details">
+                <h3>WhatsApp</h3>
+                <p>Quick queries and instant support</p>
+                <span class="response-time">Available 24/7</span>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-icon">
+                <span>📍</span>
+              </div>
+              <div class="method-details">
+                <h3>Location</h3>
+                <p>Serving all regions</p>
+                <span class="response-time">Nationwide delivery</span>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-icon">
+                <span>🏭</span>
+              </div>
+              <div class="method-details">
+                <h3>Technical Support</h3>
+                <p>Feed formulation assistance</p>
+                <span class="response-time">Expert consultation</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business Hours -->
+          <div class="business-hours">
+            <h3>Business Hours</h3>
+            <div class="hours-grid">
+              <div class="hours-item">
+                <span class="day">Monday - Friday</span>
+                <span class="time">8:00 AM - 6:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="day">Saturday</span>
+                <span class="time">9:00 AM - 4:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="day">Sunday</span>
+                <span class="time">Emergency support only</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-container">
+          <form class="contact-form" id="contactForm">
+            <div class="form-header">
+              <h2>Send us a Message</h2>
+              <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-section">
+              <h3 class="section-title">Personal Information</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name <span class="required">*</span></label>
+                  <input type="text" id="firstName" name="firstName" required>
+                  <span class="error-message" id="firstNameError"></span>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name <span class="required">*</span></label>
+                  <input type="text" id="lastName" name="lastName" required>
+                  <span class="error-message" id="lastNameError"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email Address <span class="required">*</span></label>
+                  <input type="email" id="email" name="email" required>
+                  <span class="error-message" id="emailError"></span>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number <span class="required">*</span></label>
+                  <input type="tel" id="phone" name="phone" required>
+                  <span class="error-message" id="phoneError"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Service Information -->
+            <div class="form-section">
+              <h3 class="section-title">Service Information</h3>
+              <div class="form-group">
+                <label for="serviceType">Type of Service <span class="required">*</span></label>
+                <select id="serviceType" name="serviceType" required>
+                  <option value="">Please select a service</option>
+                  <option value="enquiry">Product Enquiry</option>
+                  <option value="quote">Request Quote</option>
+                  <option value="technical">Technical Support</option>
+                  <option value="partnership">Partnership Opportunity</option>
+                  <option value="complaint">Complaint/Issue</option>
+                  <option value="other">Other</option>
+                </select>
+                <span class="error-message" id="serviceTypeError"></span>
+              </div>
+
+              <!-- Dynamic Enquiry Fields -->
+              <div class="enquiry-fields" id="enquiryFields" style="display: none;">
+                <h4 class="subsection-title">Product Requirements</h4>
+                
+                <div class="form-group">
+                  <label for="productType">Product Type <span class="required">*</span></label>
+                  <select id="productType" name="productType">
+                    <option value="">Select product type</option>
+                    <option value="soybean-meal-46">Soybean Meal (46% Protein)</option>
+                    <option value="soybean-meal-48">Soybean Meal (48% Protein)</option>
+                    <option value="soybean-meal-50">Hi-Pro Soybean Meal (50% Protein)</option>
+                    <option value="soya-flour-untoasted">Defatted Soya Flour (Untoasted)</option>
+                    <option value="soya-flour-toasted">Defatted Soya Flour (Toasted)</option>
+                    <option value="full-fat-flour">Full Fat Soya Flour</option>
+                    <option value="soya-grits">Soya Grits</option>
+                    <option value="soya-flakes">Soya Flakes</option>
+                    <option value="tvp-granules">TVP Soya Granules</option>
+                    <option value="soya-chunks">Soya Chunks</option>
+                    <option value="custom-blend">Custom Blend</option>
+                  </select>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="quantityNeeded">Quantity Needed <span class="required">*</span></label>
+                    <input type="number" id="quantityNeeded" name="quantityNeeded" min="1" placeholder="Enter quantity">
+                  </div>
+                  <div class="form-group">
+                    <label for="quantityUnit">Unit <span class="required">*</span></label>
+                    <select id="quantityUnit" name="quantityUnit">
+                      <option value="kg">Kilograms (kg)</option>
+                      <option value="mt">Metric Tons (MT)</option>
+                      <option value="tonnes">Tonnes</option>
+                      <option value="bags">Bags (50kg each)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="deliveryLocation">Delivery Location</label>
+                    <input type="text" id="deliveryLocation" name="deliveryLocation" placeholder="City/Region in Tanzania">
+                  </div>
+                  <div class="form-group">
+                    <label for="timeframe">Required Timeframe</label>
+                    <select id="timeframe" name="timeframe">
+                      <option value="">Select timeframe</option>
+                      <option value="immediate">Immediate (1-7 days)</option>
+                      <option value="urgent">Urgent (1-2 weeks)</option>
+                      <option value="normal">Normal (2-4 weeks)</option>
+                      <option value="flexible">Flexible (1+ months)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="businessType">Type of Business</label>
+                  <select id="businessType" name="businessType">
+                    <option value="">Select business type</option>
+                    <option value="poultry-farm">Poultry Farm</option>
+                    <option value="livestock-farm">Livestock Farm</option>
+                    <option value="feed-manufacturer">Feed Manufacturer</option>
+                    <option value="distributor">Distributor/Retailer</option>
+                    <option value="aquaculture">Aquaculture</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div class="form-group">
+                <label for="message">Message <span class="required">*</span></label>
+                <textarea id="message" name="message" rows="5" placeholder="Please provide details about your inquiry, specific requirements, or any questions you have..." required></textarea>
+                <span class="error-message" id="messageError"></span>
+                <div class="character-count">
+                  <span id="charCount">0</span>/1000 characters
+                </div>
+              </div>
+            </div>
+
+            <!-- Additional Options -->
+            <div class="form-section">
+              <h3 class="section-title">Additional Options</h3>
+              
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="newsletter" name="newsletter">
+                  <span class="checkmark"></span>
+                  Subscribe to our newsletter for product updates and industry insights
+                </label>
+              </div>
+
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="catalogRequest" name="catalogRequest">
+                  <span class="checkmark"></span>
+                  Request our digital product catalog
+                </label>
+              </div>
+
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="technicalConsultation" name="technicalConsultation">
+                  <span class="checkmark"></span>
+                  Schedule a technical consultation with our feed specialists
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-submit">
+              <button type="submit" class="submit-btn" id="submitBtn">
+                <span class="btn-text">Message</span>
+                <span class="btn-loading" style="display: none;">
+                  <span class="loading-spinner"></span>
+                  Sending...
+                </span>
+              </button>
+              <p class="submit-note">
+                By submitting this form, you agree to our privacy policy and terms of service.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success/Error Messages -->
+  <div class="message-popup" id="messagePopup" style="display: none;">
+    <div class="popup-content">
+      <div class="popup-icon" id="popupIcon"></div>
+      <h3 id="popupTitle"></h3>
+      <p id="popupMessage"></p>
+      <button class="popup-close" id="popupClose">Close</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <div class="logo-icon"><img src="/img/logo.png" alt="logo"></div>
+            <span>SM Agro Trades Ltd</span>
+          </div>
+          <p>Premium Non-GMO soy products for poultry and agriculture industry.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="mission.html">Our Mission</a></li>
+            <li><a href="products.html">Products</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Products</h4>
+          <ul>
+            <li>Soybean Meal</li>
+            <li>Soya Flour</li>
+            <li>Soya Grits</li>
+            <li>Specialty Products</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul>
+             <li>sale.smagrotraders@gmail.com</li>
+            <li>phone:+91-7418539485</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SM Agro Trades Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script-contact.js"></script>
+</body>
+</html>

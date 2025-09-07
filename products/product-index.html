@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Products - SM Agro Trades Ltd</title>
+  <link rel="icon" type="image/png" href="/img/logo.png">
+  <link rel="stylesheet" href="/products/style-product.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon"><img src="/img/logo.png" alt="logo"></div>
+        <span>SM Agro Trades</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/INDEX.html">Home</a></li>
+        <li><a href="/about/About.html">About</a></li>
+        <li><a href="/our-mission/our-mission.html">Mission</a></li>
+        <li><a href="/products/product-index.html" class="active">Products</a></li>
+        <li><a href="/contact-us/contact.html">Contact us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-products">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>Premium Soy Products</h1>
+        <p class="hero-subtitle">Non-GMO Quality You Can Trust</p>
+        <p class="hero-description">Discover our comprehensive range of high-quality soybean products, sourced from certified processors in India and delivering On time.</p>
+        <div class="breadcrumb">
+          <a href="index.html">Home</a> / <span>Products</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter & Search Section -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-controls">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search products..." />
+          <div class="search-icon">🔍</div>
+        </div>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-category="all">All Products</button>
+          <button class="filter-btn" data-category="meal">Soybean Meal</button>
+          <button class="filter-btn" data-category="flour">Soya Flour</button>
+          <button class="filter-btn" data-category="grits">Soya Grits</button>
+          <button class="filter-btn" data-category="specialty">Specialty Products</button>
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn active" data-view="grid">
+            <span class="icon">⋮⋮</span> Grid
+          </button>
+          <button class="view-btn" data-view="list">
+            <span class="icon">☰</span> List
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-showcase">
+    <div class="container">
+      <div class="products-grid" id="productsGrid">
+        
+        <!-- Soybean Meal Products -->
+        <div class="product-card" data-category="meal" data-name="soybean meal doc">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🌾</div>
+              <div class="quality-badge">Premium</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('soybean-meal-doc')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('soybean-meal-doc')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('soybean-meal-doc')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Soybean Meal</div>
+            <h3 class="product-title">Soybean Meal (DOC) - 46% Protein</h3>
+            <div class="product-specs">
+              <span class="spec">46% Protein</span>
+              <span class="spec">Non-GMO</span>
+              <span class="spec">Premium Grade</span>
+            </div>
+            <p class="product-description">High-quality defatted soybean meal perfect for poultry and livestock feed with consistent protein content.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>High Protein Content</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Excellent Digestibility</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('soybean-meal-doc')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('soybean-meal-doc')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indian Non-GMO Hipro Soybean Meal -->
+        <div class="product-card" data-category="meal" data-name="indian non gmo hipro soybean meal">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🏆</div>
+              <div class="quality-badge">Hi-Pro</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('hipro-soybean')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('hipro-soybean')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('hipro-soybean')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Soybean Meal</div>
+            <h3 class="product-title">Indian Non-GMO Hi-Pro Soybean Meal</h3>
+            <div class="product-specs">
+              <span class="spec">48-50% Protein</span>
+              <span class="spec">Non-GMO</span>
+              <span class="spec">Hi-Pro Grade</span>
+            </div>
+            <p class="product-description">Premium high-protein soybean meal with enhanced nutritional value for superior feed performance.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Maximum Protein Content</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Superior Feed Conversion</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('hipro-soybean')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('hipro-soybean')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Defatted Soya Flour Untoasted -->
+        <div class="product-card" data-category="flour" data-name="defatted soya flour untoasted">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🥛</div>
+              <div class="quality-badge">Untoasted</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('flour-untoasted')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('flour-untoasted')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('flour-untoasted')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Soya Flour</div>
+            <h3 class="product-title">Defatted Soya Flour (Untoasted)</h3>
+            <div class="product-specs">
+              <span class="spec">50% Protein</span>
+              <span class="spec">Light Color</span>
+              <span class="spec">Fine Texture</span>
+            </div>
+            <p class="product-description">Light-colored, fine-textured soya flour ideal for specialized feed applications requiring mild flavor.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Neutral Flavor Profile</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Fine Particle Size</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('flour-untoasted')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('flour-untoasted')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Defatted Soya Flour Toasted -->
+        <div class="product-card" data-category="flour" data-name="defatted soya flour toasted">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🍞</div>
+              <div class="quality-badge">Toasted</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('flour-toasted')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('flour-toasted')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('flour-toasted')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Soya Flour</div>
+            <h3 class="product-title">Defatted Soya Flour (Toasted)</h3>
+            <div class="product-specs">
+              <span class="spec">48% Protein</span>
+              <span class="spec">Rich Flavor</span>
+              <span class="spec">Golden Color</span>
+            </div>
+            <p class="product-description">Toasted soya flour with enhanced flavor and improved digestibility for premium feed applications.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Enhanced Palatability</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Better Digestibility</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('flour-toasted')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('flour-toasted')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Fat Soya Flour -->
+        <div class="product-card" data-category="flour" data-name="full fat soya flour">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🌟</div>
+              <div class="quality-badge">Full Fat</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('full-fat-flour')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('full-fat-flour')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('full-fat-flour')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Soya Flour</div>
+            <h3 class="product-title">Full Fat Soya Flour</h3>
+            <div class="product-specs">
+              <span class="spec">38% Protein</span>
+              <span class="spec">18% Fat</span>
+              <span class="spec">High Energy</span>
+            </div>
+            <p class="product-description">Energy-rich full-fat soya flour providing both protein and essential fatty acids for optimal nutrition.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>High Energy Content</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Essential Fatty Acids</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('full-fat-flour')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('full-fat-flour')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Defatted Soya Grits Untoasted -->
+        <div class="product-card" data-category="grits" data-name="defatted soya grits untoasted">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🌰</div>
+              <div class="quality-badge">Grits</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('grits-untoasted')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('grits-untoasted')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('grits-untoasted')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Soya Grits</div>
+            <h3 class="product-title">Defatted Soya Grits (Untoasted)</h3>
+            <div class="product-specs">
+              <span class="spec">50% Protein</span>
+              <span class="spec">Coarse Texture</span>
+              <span class="spec">Natural</span>
+            </div>
+            <p class="product-description">Coarsely ground soya grits providing texture and nutrition for specialized feed formulations.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Textural Variety</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Uniform Particle Size</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('grits-untoasted')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('grits-untoasted')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soya Grits Defatted Toasted -->
+        <div class="product-card" data-category="grits" data-name="soya grits defatted toasted">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🔥</div>
+              <div class="quality-badge">Toasted</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('grits-toasted')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('grits-toasted')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('grits-toasted')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Soya Grits</div>
+            <h3 class="product-title">Soya Grits Defatted (Toasted)</h3>
+            <div class="product-specs">
+              <span class="spec">48% Protein</span>
+              <span class="spec">Enhanced Flavor</span>
+              <span class="spec">Improved Digestibility</span>
+            </div>
+            <p class="product-description">Toasted soya grits with improved palatability and digestibility for enhanced feed performance.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Better Palatability</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Enhanced Digestibility</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('grits-toasted')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('grits-toasted')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soya Flakes -->
+        <div class="product-card" data-category="specialty" data-name="soya flakes">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🥣</div>
+              <div class="quality-badge">Flakes</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('soya-flakes')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('soya-flakes')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('soya-flakes')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Specialty Products</div>
+            <h3 class="product-title">Soya Flakes</h3>
+            <div class="product-specs">
+              <span class="spec">45% Protein</span>
+              <span class="spec">Rolled Texture</span>
+              <span class="spec">Easy Mixing</span>
+            </div>
+            <p class="product-description">Rolled soya flakes providing excellent mixability and uniform distribution in feed formulations.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Superior Mixing Properties</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Uniform Distribution</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('soya-flakes')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('soya-flakes')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TVP Soya Granules -->
+        <div class="product-card" data-category="specialty" data-name="tvp soya granules">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🎯</div>
+              <div class="quality-badge">TVP</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('tvp-granules')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('tvp-granules')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('tvp-granules')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Specialty Products</div>
+            <h3 class="product-title">TVP Soya Granules</h3>
+            <div class="product-specs">
+              <span class="spec">52% Protein</span>
+              <span class="spec">Textured</span>
+              <span class="spec">High Absorption</span>
+            </div>
+            <p class="product-description">Textured vegetable protein granules providing superior protein content and excellent water absorption.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Highest Protein Content</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Excellent Water Retention</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('tvp-granules')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('tvp-granules')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soya Chunks -->
+        <div class="product-card" data-category="specialty" data-name="soya chunks">
+          <div class="product-image">
+            <div class="image-placeholder">
+              <div class="placeholder-icon">🧊</div>
+              <div class="quality-badge">Chunks</div>
+            </div>
+            <div class="product-overlay">
+              <div class="overlay-buttons">
+                <button class="btn-icon" title="Quick View" onclick="openQuickView('soya-chunks')">👁️</button>
+                <button class="btn-icon" title="Compare" onclick="addToCompare('soya-chunks')">⚖️</button>
+                <button class="btn-icon" title="Favorite" onclick="toggleFavorite('soya-chunks')">♡</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-category">Specialty Products</div>
+            <h3 class="product-title">Soya Chunks</h3>
+            <div class="product-specs">
+              <span class="spec">50% Protein</span>
+              <span class="spec">Large Pieces</span>
+              <span class="spec">Meat-like Texture</span>
+            </div>
+            <p class="product-description">Large soya chunks providing substantial texture and protein for specialized feed applications.</p>
+            <div class="product-features">
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>Substantial Texture</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">✓</span>
+                <span>High Protein Density</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <button class="btn-primary" onclick="requestQuote('soya-chunks')">Request Quote</button>
+              <button class="btn-secondary" onclick="viewDetails('soya-chunks')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" id="noResults" style="display: none;">
+        <div class="no-results-content">
+          <div class="no-results-icon">🔍</div>
+          <h3>No products found</h3>
+          <p>Try adjusting your search or filter criteria</p>
+          <button class="btn-primary" onclick="clearFilters()">Clear Filters</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Comparison Section -->
+  <section class="comparison-section" id="comparisonSection" style="display: none;">
+    <div class="container">
+      <div class="comparison-header">
+        <h3>Compare Products</h3>
+        <button class="close-comparison" onclick="closeComparison()">✕</button>
+      </div>
+      <div class="comparison-table" id="comparisonTable">
+        <!-- Comparison content will be dynamically generated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-products">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Need Custom Solutions?</h2>
+        <p>We offer custom blend formulations tailored to your specific feed requirements. Contact our technical team to discuss your needs.</p>
+        <div class="cta-buttons">
+          <a href="index.html#contact" class="btn btn-primary">Contact Technical Team</a>
+          <a href="#" class="btn btn-secondary" onclick="downloadCatalog()">Download Catalog</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <div class="logo-icon"><img src="/img/logo.png" alt="logo"></div>
+            <span>SM Agro Trades Ltd</span>
+          </div>  
+          <p id="logo-icon">Premium Non-GMO soy products for agricultural industry.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="mission.html">Our Mission</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="/contact-us/contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Products</h4>
+          <ul>
+            <li>Soybean Meal</li>
+            <li>Soya Flour</li>
+            <li>Soya Grits</li>
+            <li>Specialty Products</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul>
+            <li>sale.smagrotraders@gmail.com</li>
+            <li>phone:+91-7418539485</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 SM Agro Trades Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Quick View Modal -->
+  <div class="modal" id="quickViewModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Product Details</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Modal content will be dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <script src="/products/script-products.js"></script>
+</body>
+</html>

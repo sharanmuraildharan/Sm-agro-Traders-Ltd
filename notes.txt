@@ -1,0 +1,20 @@
+--java script --
+ high level programming language 
+ it's a interpreter language
+confroms the ecmascript specfication
+multi paradigm 
+it's a browers as well as server based language
+server based with node.js
+ browers based language language 
+ can built interactive user interface
+ like react
+ fast and powerfull
+
+ console -> which you can access or edit in the console 
+ const -> this will be the constant variable which means you can't change it you can't intialize on const 
+ let -> this lets the user to define the the variable that you're using in it 
+ console.log(" args[]") you can print anything it , it basically print in the console of the web browers
+
+javascript is dynamic typed programming language
+ // strings, number , boolean , null , unfinded
+you cant re-assgin a array
