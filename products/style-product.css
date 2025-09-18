@@ -334,12 +334,12 @@ body {
 
 .product-image {
   position: relative;
-  height: 250px;
-  overflow: hidden;
+  height: 450px;
+  overflow: scroll;
 }
 
 .products-grid.list-view .product-image {
-  height: 200px;
+  height: 500px;
 }
 
 .image-placeholder {
@@ -470,7 +470,7 @@ body {
 }
 
 .feature-icon {
-  color: #4ade80;
+  color: #030303;
   font-weight: bold;
 }
 
