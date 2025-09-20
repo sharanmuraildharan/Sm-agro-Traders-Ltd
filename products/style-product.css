@@ -377,7 +377,6 @@ background: url("https://img.freepik.com/free-photo/african-man-harvesting-veget
   align-items: center;
   justify-content: center;
 }
-
 .product-card:hover .product-overlay {
   opacity: 1;
 }
