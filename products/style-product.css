@@ -110,7 +110,7 @@ body {
 
 /* Hero Products Section */
 .hero-products {
-  height: 60vh;
+  height: 100vh;
   background: linear-gradient(135deg, #215600 0%, #4ade80 100%);
   display: flex;
   align-items: center;
@@ -124,14 +124,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff10'%3E%3Cpath d='M30 30c0-16.569 13.431-30 30-30v60c-16.569 0-30-13.431-30-30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-  animation: float 20s infinite linear;
-}
-
-@keyframes float {
-  0% { transform: translateX(0px) translateY(0px); }
-  100% { transform: translateX(-60px) translateY(-60px); }
-}
+background: url("https://img.freepik.com/free-photo/african-man-harvesting-vegetables_23-2151441237.jpg?t=st=1758383514~exp=1758387114~hmac=8d025fdf69db90a9dfbd3040efeff5bc5e1248e04ac99e3207804e5c41bafeae&w=2000");}
 
 .hero-content {
   position: relative;
@@ -169,7 +162,7 @@ body {
 }
 
 .breadcrumb a {
-  color: #4ade80;
+  color: black;
   text-decoration: none;
 }
 
@@ -286,7 +279,7 @@ body {
 
 /* Products Showcase */
 .products-showcase {
-  padding: 4rem 0;
+  padding: 2.5rem 0;
   background: linear-gradient(135deg, #f8fffe 0%, #e5f5f0 100%);
 }
 
@@ -334,12 +327,12 @@ body {
 
 .product-image {
   position: relative;
-  height: 450px;
-  overflow: scroll;
+  height: 250px;
+  overflow: hidden;
 }
 
 .products-grid.list-view .product-image {
-  height: 500px;
+  height: 200px;
 }
 
 .image-placeholder {
@@ -351,7 +344,9 @@ body {
   justify-content: center;
   position: relative;
 }
-
+.placeholder-icon img{
+  height:auto;
+}
 .placeholder-icon {
   font-size: 4rem;
   color: #215600;
@@ -470,7 +465,7 @@ body {
 }
 
 .feature-icon {
-  color: #030303;
+  color: #4ade80;
   font-weight: bold;
 }
 
@@ -846,4 +841,7 @@ body {
 }
 .logo-icon{
   margin-bottom: 10px;
+}
+.placeholder-icon img{
+  height: 550px;
 }
