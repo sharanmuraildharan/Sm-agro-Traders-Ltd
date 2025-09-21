@@ -111,24 +111,23 @@ body {
   width: 100%;
 }
 
-/* Hero Products Section */
 .hero-products {
-  height: 100vh;
-  background: linear-gradient(135deg, #215600 0%, #4ade80 100%);
+  height: 60vh;
+  background:url("https://img.freepik.com/free-photo/woman-picking-strawberries-farm_1150-36966.jpg?t=st=1758470110~exp=1758473710~hmac=9cc447975951972c4c5c9d62622e3a950e534dac2c952a1794e0e97fbc003527&w=1060");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
 }
 
+/* Remove the duplicate overlay */
 .hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("https://img.freepik.com/free-photo/woman-picking-strawberries-farm_1150-36966.jpg?t=st=1758470110~exp=1758473710~hmac=9cc447975951972c4c5c9d62622e3a950e534dac2c952a1794e0e97fbc003527&w=1060");
+  display: none;
 }
+
 
 .hero-content {
   position: relative;
