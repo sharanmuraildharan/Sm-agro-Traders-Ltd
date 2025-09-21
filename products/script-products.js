@@ -3,6 +3,7 @@ let currentFilter = 'all';
 let currentView = 'grid';
 let comparisonList = [];
 let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+let currentZoom = 1;
 
 // Navbar scroll effect
 window.addEventListener('scroll', function() {
@@ -101,29 +102,19 @@ function clearFilters() {
   filterProducts();
 }
 
-// Quick view functionality
-function openQuickView(productId) {
-  const modal = document.getElementById('quickViewModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalBody = document.getElementById('modalBody');
-  
-  // Product data (in a real application, this would come from an API)
-  const productData = getProductData(productId);
-  
-  modalTitle.textContent = productData.title;
-  modalBody.innerHTML = generateQuickViewContent(productData);
-  
-  modal.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-}
-
-// Generate quick view content
+// Enhanced generateQuickViewContent function with real images
 function generateQuickViewContent(product) {
   return `
     <div class="quick-view-content">
       <div class="quick-view-image">
-        <div class="image-placeholder">
-          <div class="placeholder-icon">${product.icon}</div>
+        <div class="product-image-container">
+          <img src="${product.imageUrl}" alt="${product.title}" class="product-detail-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="image-placeholder fallback-placeholder" style="display: none;">
+            <div class="placeholder-icon">${product.icon}</div>
+          </div>
+          <div class="image-zoom-overlay">
+            <button class="zoom-btn" onclick="openImageZoom('${product.imageUrl}', '${product.title}')" title="View larger image">🔍</button>
+          </div>
         </div>
       </div>
       <div class="quick-view-details">
@@ -154,7 +145,7 @@ function generateQuickViewContent(product) {
   `;
 }
 
-// Get product data
+// Updated getProductData function with image URLs
 function getProductData(productId) {
   const products = {
     'soybean-meal-doc': {
@@ -162,6 +153,7 @@ function getProductData(productId) {
       title: 'Soybean Meal (DOC) - 46% Protein',
       category: 'Soybean Meal',
       icon: '🌾',
+      imageUrl: 'https://nutrimake.in/wp-content/uploads/2024/12/soya-doc-500x500-2.webp', // Replace with your actual image URL
       specs: ['46% Protein', 'Non-GMO', 'Premium Grade'],
       description: 'High-quality defatted soybean meal perfect for poultry and livestock feed with consistent protein content.',
       detailedSpecs: [
@@ -183,6 +175,7 @@ function getProductData(productId) {
       title: 'Indian Non-GMO Hi-Pro Soybean Meal',
       category: 'Soybean Meal',
       icon: '🏆',
+      imageUrl: 'https://moepl.com/wp-content/uploads/2022/10/2-2-2048x1365.jpg', // Replace with your actual image URL
       specs: ['48-50% Protein', 'Non-GMO', 'Hi-Pro Grade'],
       description: 'Premium high-protein soybean meal with enhanced nutritional value for superior feed performance.',
       detailedSpecs: [
@@ -204,6 +197,7 @@ function getProductData(productId) {
       title: 'Defatted Soya Flour (Untoasted)',
       category: 'Soya Flour',
       icon: '🥛',
+      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/defatted-soya-flour-untoasted-1730974470-7672990.jpg', // Replace with your actual image URL
       specs: ['50% Protein', 'Light Color', 'Fine Texture'],
       description: 'Light-colored, fine-textured soya flour ideal for specialized feed applications requiring mild flavor.',
       detailedSpecs: [
@@ -219,6 +213,157 @@ function getProductData(productId) {
         'Milk replacer ingredients',
         'Fine-textured feed applications'
       ]
+    },
+    'flour-toasted': {
+      id: 'flour-toasted',
+      title: 'Defatted Soya Flour (Toasted)',
+      category: 'Soya Flour',
+      icon: '🍞',
+      imageUrl: '/img/Screenshot 2025-09-20 at 9.48.00 PM.png', // Replace with your actual image URL
+      specs: ['48% Protein', 'Rich Flavor', 'Golden Color'],
+      description: 'Toasted soya flour with enhanced flavor and improved digestibility for premium feed applications.',
+      detailedSpecs: [
+        'Protein Content: 48% minimum',
+        'Crude Fat: 1.5% maximum',
+        'Moisture: 12% maximum',
+        'Particle Size: 60-80 mesh',
+        'Color: Golden brown'
+      ],
+      applications: [
+        'Enhanced palatability feeds',
+        'Premium livestock nutrition',
+        'Digestibility-focused formulations',
+        'Flavor-enhanced feed products'
+      ]
+    },
+    'full-fat-flour': {
+      id: 'full-fat-flour',
+      title: 'Full Fat Soya Flour',
+      category: 'Soya Flour',
+      icon: '🌟',
+      imageUrl: 'https://2.wlimg.com/product_images/bc-full/dir_39/1141076/full-fat-soya-flour-1818060.jpg', // Replace with your actual image URL
+      specs: ['38% Protein', '18% Fat', 'High Energy'],
+      description: 'Energy-rich full-fat soya flour providing both protein and essential fatty acids for optimal nutrition.',
+      detailedSpecs: [
+        'Protein Content: 38% minimum',
+        'Crude Fat: 18% minimum',
+        'Moisture: 12% maximum',
+        'Energy Content: High',
+        'Essential Fatty Acids: Present'
+      ],
+      applications: [
+        'High-energy feed formulations',
+        'Young animal nutrition',
+        'Energy-dense feed applications',
+        'Essential fatty acid supplementation'
+      ]
+    },
+    'grits-untoasted': {
+      id: 'grits-untoasted',
+      title: 'Defatted Soya Grits (Untoasted)',
+      category: 'Soya Grits',
+      icon: '🌰',
+      imageUrl: 'https://img500.exportersindia.com/product_images/bc-500/2023/9/5998964/soyabean-grit-1694847295-7084078.jpeg', // Replace with your actual image URL
+      specs: ['50% Protein', 'Coarse Texture', 'Natural'],
+      description: 'Coarsely ground soya grits providing texture and nutrition for specialized feed formulations.',
+      detailedSpecs: [
+        'Protein Content: 50% minimum',
+        'Crude Fat: 1.5% maximum',
+        'Moisture: 12% maximum',
+        'Particle Size: 8-20 mesh',
+        'Texture: Coarse'
+      ],
+      applications: [
+        'Textural variety in feeds',
+        'Specialty feed formulations',
+        'Uniform particle distribution',
+        'Feed texture enhancement'
+      ]
+    },
+    'grits-toasted': {
+      id: 'grits-toasted',
+      title: 'Soya Grits Defatted (Toasted)',
+      category: 'Soya Grits',
+      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/soya-grits-defatted-toasted-1730974188-7673005.jpeg', // Replace with your actual image URL
+      specs: ['48% Protein', 'Enhanced Flavor', 'Improved Digestibility'],
+      description: 'Toasted soya grits with improved palatability and digestibility for enhanced feed performance.',
+      detailedSpecs: [
+        'Protein Content: 48% minimum',
+        'Crude Fat: 1.5% maximum',
+        'Moisture: 12% maximum',
+        'Particle Size: 8-20 mesh',
+        'Processing: Heat treated'
+      ],
+      applications: [
+        'Enhanced palatability feeds',
+        'Better digestibility formulations',
+        'Improved feed performance',
+        'Premium feed applications'
+      ]
+    },
+    'soya-flakes': {
+      id: 'soya-flakes',
+      title: 'Soya Flakes',
+      category: 'Specialty Products',
+      imageUrl: 'https://seasonsinternational.in/wp-content/uploads/2024/06/untoasted-defatted-soya-flakes.webp', // Replace with your actual image URL
+      specs: ['45% Protein', 'Rolled Texture', 'Easy Mixing'],
+      description: 'Rolled soya flakes providing excellent mixability and uniform distribution in feed formulations.',
+      detailedSpecs: [
+        'Protein Content: 45% minimum',
+        'Crude Fat: 1.5% maximum',
+        'Moisture: 12% maximum',
+        'Form: Rolled flakes',
+        'Mixing: Excellent'
+      ],
+      applications: [
+        'Superior mixing properties',
+        'Uniform feed distribution',
+        'Feed processing enhancement',
+        'Texture improvement'
+      ]
+    },
+    'tvp-granules': {
+      id: 'tvp-granules',
+      title: 'TVP Soya Granules',
+      category: 'Specialty Products',
+      icon: '🎯',
+      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/tvp-soya-granules-1730975633-7672730.jpeg', // Replace with your actual image URL
+      specs: ['52% Protein', 'Textured', 'High Absorption'],
+      description: 'Textured vegetable protein granules providing superior protein content and excellent water absorption.',
+      detailedSpecs: [
+        'Protein Content: 52% minimum',
+        'Crude Fat: 1.0% maximum',
+        'Moisture: 10% maximum',
+        'Water absorption: 1:3',
+        'Texture: Granular'
+      ],
+      applications: [
+        'Highest protein applications',
+        'Water retention systems',
+        'Textured feed products',
+        'Premium nutrition formulations'
+      ]
+    },
+    'soya-chunks': {
+      id: 'soya-chunks',
+      title: 'Soya Chunks',
+      category: 'Specialty Products',
+      imageUrl: 'https://uploads-ssl.webflow.com/652fa48dbb0bdb53c30277ac/65302c2a0db5313db4f7bd53_645a38c6dac5ab4121eec82d_6420b003f2602ac805f295d5_Untitled%252520design%252520(37).png', // Replace with your actual image URL
+      specs: ['50% Protein', 'Large Pieces', 'Meat-like Texture'],
+      description: 'Large soya chunks providing substantial texture and protein for specialized feed applications.',
+      detailedSpecs: [
+        'Protein Content: 50% minimum',
+        'Crude Fat: 1.5% maximum',
+        'Moisture: 12% maximum',
+        'Size: Large chunks',
+        'Texture: Substantial'
+      ],
+      applications: [
+        'Substantial texture feeds',
+        'High protein density',
+        'Specialized feed applications',
+        'Texture-focused formulations'
+      ]
     }
   };
   
@@ -227,11 +372,84 @@ function getProductData(productId) {
     title: 'Product Details',
     category: 'General',
     icon: '🌱',
+    imageUrl: '/img/products/default-product.jpg', // Replace with your actual default image URL
     specs: ['Premium Quality', 'Non-GMO'],
     description: 'High-quality soy product for feed applications.',
     detailedSpecs: ['Contact us for detailed specifications'],
     applications: ['Feed manufacturing', 'Nutritional supplementation']
   };
+}
+
+// Quick view functionality
+function openQuickView(productId) {
+  const modal = document.getElementById('quickViewModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+  
+  const productData = getProductData(productId);
+  
+  modalTitle.textContent = productData.title;
+  modalBody.innerHTML = generateQuickViewContent(productData);
+  
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+// Image zoom functionality
+function openImageZoom(imageUrl, productTitle) {
+  const zoomModal = document.createElement('div');
+  zoomModal.className = 'image-zoom-modal';
+  zoomModal.innerHTML = `
+    <div class="zoom-modal-overlay" onclick="closeImageZoom()">
+      <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <div class="zoom-modal-header">
+          <h3>${productTitle}</h3>
+          <button class="zoom-close" onclick="closeImageZoom()">&times;</button>
+        </div>
+        <div class="zoom-image-container">
+          <img src="${imageUrl}" alt="${productTitle}" class="zoomed-image">
+        </div>
+        <div class="zoom-controls">
+          <button class="zoom-btn-control" onclick="zoomIn()">🔍+</button>
+          <button class="zoom-btn-control" onclick="zoomOut()">🔍-</button>
+          <button class="zoom-btn-control" onclick="resetZoom()">⟲ Reset</button>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(zoomModal);
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageZoom() {
+  const zoomModal = document.querySelector('.image-zoom-modal');
+  if (zoomModal) {
+    zoomModal.remove();
+    document.body.style.overflow = 'auto';
+  }
+}
+
+function zoomIn() {
+  currentZoom += 0.2;
+  updateZoom();
+}
+
+function zoomOut() {
+  currentZoom = Math.max(0.5, currentZoom - 0.2);
+  updateZoom();
+}
+
+function resetZoom() {
+  currentZoom = 1;
+  updateZoom();
+}
+
+function updateZoom() {
+  const image = document.querySelector('.zoomed-image');
+  if (image) {
+    image.style.transform = `scale(${currentZoom})`;
+  }
 }
 
 // Close modal
@@ -251,13 +469,8 @@ window.addEventListener('click', function(event) {
 
 // Request quote functionality
 function requestQuote(productId) {
-  // Show quote request message
   showMessage(`Quote request submitted for ${productId}. We'll contact you soon!`, 'success');
-  
-  // In a real application, this would send data to your server
   console.log(`Quote requested for product: ${productId}`);
-  
-  // Close modal if it's open
   closeModal();
 }
 
@@ -302,7 +515,6 @@ function updateComparisonSection() {
   
   comparisonSection.style.display = 'block';
   
-  // Generate comparison table
   let tableHTML = '<table class="comparison-table-content"><thead><tr><th>Feature</th>';
   comparisonList.forEach(productId => {
     const product = getProductData(productId);
@@ -310,7 +522,6 @@ function updateComparisonSection() {
   });
   tableHTML += '</tr></thead><tbody>';
   
-  // Add comparison rows
   const features = ['Category', 'Protein Content', 'Applications'];
   features.forEach(feature => {
     tableHTML += `<tr><td><strong>${feature}</strong></td>`;
@@ -354,10 +565,7 @@ function toggleFavorite(productId) {
     showMessage('Added to favorites', 'success');
   }
   
-  // Store in localStorage
   localStorage.setItem('favorites', JSON.stringify(favorites));
-  
-  // Update heart icon
   updateFavoriteIcons();
 }
 
@@ -379,16 +587,13 @@ function updateFavoriteIcons() {
 
 // Show message function
 function showMessage(message, type = 'info') {
-  // Remove existing messages
   const existingMessages = document.querySelectorAll('.toast-message');
   existingMessages.forEach(msg => msg.remove());
   
-  // Create message element
   const messageEl = document.createElement('div');
   messageEl.className = `toast-message toast-${type}`;
   messageEl.textContent = message;
   
-  // Style the message
   const colors = {
     success: { bg: '#d1fae5', color: '#065f46', border: '#10b981' },
     error: { bg: '#fee2e2', color: '#991b1b', border: '#ef4444' },
@@ -417,13 +622,11 @@ function showMessage(message, type = 'info') {
   
   document.body.appendChild(messageEl);
   
-  // Auto remove after 4 seconds
   setTimeout(() => {
     messageEl.style.animation = 'slideOut 0.3s ease';
     setTimeout(() => messageEl.remove(), 300);
   }, 4000);
   
-  // Remove on click
   messageEl.addEventListener('click', () => {
     messageEl.style.animation = 'slideOut 0.3s ease';
     setTimeout(() => messageEl.remove(), 300);
@@ -453,7 +656,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('load', function() {
   document.body.classList.add('loaded');
   
-  // Initialize product card animations with stagger
   const productCards = document.querySelectorAll('.product-card');
   productCards.forEach((card, index) => {
     setTimeout(() => {
@@ -484,84 +686,12 @@ animationStyles.textContent = `
     opacity: 0.9;
     transform: translateX(-5px);
   }
-  
-  .comparison-table-content {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .comparison-table-content th,
-  .comparison-table-content td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #e5f5f0;
-  }
-  
-  .comparison-table-content th {
-    background: #f8fffe;
-    font-weight: 600;
-    color: #215600;
-    position: relative;
-  }
-  
-  .remove-compare {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: #ef4444;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    line-height: 1;
-  }
-  
-  .quick-view-content {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 1.5rem;
-  }
-  
-  .quick-view-image .image-placeholder {
-    height: 150px;
-    border-radius: 10px;
-  }
-  
-  .detailed-specs ul,
-  .applications ul {
-    margin: 0.5rem 0 1rem 1rem;
-    color: #666;
-  }
-  
-  .detailed-specs li,
-  .applications li {
-    margin-bottom: 0.25rem;
-  }
-  
-  .modal-actions {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  @media (max-width: 768px) {
-    .quick-view-content {
-      grid-template-columns: 1fr;
-    }
-    
-    .modal-actions {
-      flex-direction: column;
-    }
-  }
 `;
 document.head.appendChild(animationStyles);
 
 // Initialize favorites on load
 document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(updateFavoriteIcons, 1000); // Wait for cards to load
+  setTimeout(updateFavoriteIcons, 1000);
 });
 
 // Scroll progress indicator
@@ -602,12 +732,11 @@ document.getElementById('searchInput').addEventListener('input', function(e) {
 
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
-  // Escape key closes modal
   if (e.key === 'Escape') {
     closeModal();
+    closeImageZoom();
   }
   
-  // Ctrl/Cmd + K focuses search
   if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
     e.preventDefault();
     document.getElementById('searchInput').focus();
