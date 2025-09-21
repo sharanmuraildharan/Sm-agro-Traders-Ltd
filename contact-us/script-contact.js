@@ -192,10 +192,7 @@ window.addEventListener('scroll', function() {
 // Initialize form functionality
 function initializeForm() {
     // Set default values
-    const quantityUnit = document.getElementById('quantityUnit');
-    if (quantityUnit) {
-        quantityUnit.value = 'kg';
-    }
+    document.getElementById('quantityUnit').value = 'kg';
     
     // Initialize character count
     updateCharacterCount();
@@ -258,7 +255,7 @@ function setupEventListeners() {
 function handleServiceTypeChange() {
     const selectedService = serviceTypeSelect.value;
     
-    if (selectedService === 'enquiry' || selectedService === 'quote') {
+    if (selectedService === 'enquiry') {
         enquiryFields.style.display = 'block';
         // Make enquiry fields required
         const enquiryInputs = enquiryFields.querySelectorAll('input[required], select[required]');
@@ -267,13 +264,9 @@ function handleServiceTypeChange() {
         });
         
         // Update required fields
-        const productType = document.getElementById('productType');
-        const quantityNeeded = document.getElementById('quantityNeeded');
-        const quantityUnit = document.getElementById('quantityUnit');
-        
-        if (productType) productType.setAttribute('required', 'required');
-        if (quantityNeeded) quantityNeeded.setAttribute('required', 'required');
-        if (quantityUnit) quantityUnit.setAttribute('required', 'required');
+        document.getElementById('productType').setAttribute('required', 'required');
+        document.getElementById('quantityNeeded').setAttribute('required', 'required');
+        document.getElementById('quantityUnit').setAttribute('required', 'required');
         
         // Animate the appearance
         enquiryFields.style.opacity = '0';
@@ -303,8 +296,8 @@ function updateMessagePlaceholder(serviceType) {
         'enquiry': 'Please provide details about your product requirements, intended use, any specific nutritional requirements, and delivery preferences...',
         'quote': 'Please specify the products you need, quantities, delivery location, and any special requirements for your quote...',
         'technical': 'Describe your current feed formulation challenges, livestock type, and what technical assistance you need...',
-        'partnership': 'Tell us about your business, distribution capabilities, and how you would like to partner with SM Agro Trades...',
-        'complaint': 'Please describe the issue you have experienced, order details (if applicable), and what resolution you are seeking...',
+        'partnership': 'Tell us about your business, distribution capabilities, and how you\'d like to partner with SM Agro Trades...',
+        'complaint': 'Please describe the issue you\'ve experienced, order details (if applicable), and what resolution you\'re seeking...',
         'other': 'Please provide details about your inquiry or how we can assist you...'
     };
     
@@ -338,46 +331,40 @@ function updateCharacterCount() {
 function setupValidation() {
     // Email validation pattern
     const emailInput = document.getElementById('email');
-    if (emailInput) {
-        emailInput.addEventListener('input', function() {
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (this.value && !emailPattern.test(this.value)) {
-                setFieldError(this, 'Please enter a valid email address');
-            } else {
-                clearFieldError(this);
-            }
-        });
-    }
+    emailInput.addEventListener('input', function() {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (this.value && !emailPattern.test(this.value)) {
+            setFieldError(this, 'Please enter a valid email address');
+        } else {
+            clearFieldError(this);
+        }
+    });
     
     // Phone validation
     const phoneInput = document.getElementById('phone');
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function() {
-            // Remove any non-digit characters except + and spaces
-            let value = this.value.replace(/[^\d+\s-()]/g, '');
-            this.value = value;
-            
-            // Basic phone validation
-            if (value.length < 10 && value.length > 0) {
-                setFieldError(this, 'Please enter a valid phone number');
-            } else {
-                clearFieldError(this);
-            }
-        });
-    }
+    phoneInput.addEventListener('input', function() {
+        // Remove any non-digit characters except + and spaces
+        let value = this.value.replace(/[^\d+\s-()]/g, '');
+        this.value = value;
+        
+        // Basic phone validation
+        if (value.length < 10 && value.length > 0) {
+            setFieldError(this, 'Please enter a valid phone number');
+        } else {
+            clearFieldError(this);
+        }
+    });
     
     // Quantity validation
     const quantityInput = document.getElementById('quantityNeeded');
-    if (quantityInput) {
-        quantityInput.addEventListener('input', function() {
-            const value = parseFloat(this.value);
-            if (value <= 0 && this.value !== '') {
-                setFieldError(this, 'Quantity must be greater than 0');
-            } else {
-                clearFieldError(this);
-            }
-        });
-    }
+    quantityInput.addEventListener('input', function() {
+        const value = parseFloat(this.value);
+        if (value <= 0 && this.value !== '') {
+            setFieldError(this, 'Quantity must be greater than 0');
+        } else {
+            clearFieldError(this);
+        }
+    });
 }
 
 // Validate individual field
@@ -524,7 +511,7 @@ async function handleFormSubmission(e) {
         // Success
         setSubmissionState('success');
         showPopup('success', 'Message Sent Successfully!', 
-            'Thank you for contacting SM Agro Trades. We have received your message and will respond within 2 hours during business hours.');
+            'Thank you for contacting SM Agro Trades. We\'ve received your message and will respond within 2 hours during business hours.');
         
         // Reset form after successful submission
         setTimeout(() => {
@@ -578,30 +565,23 @@ function collectFormData() {
             message: document.getElementById('message').value.trim()
         },
         additionalOptions: {
-            newsletter: document.getElementById('newsletter') ? document.getElementById('newsletter').checked : false,
-            catalogRequest: document.getElementById('catalogRequest') ? document.getElementById('catalogRequest').checked : false,
-            technicalConsultation: document.getElementById('technicalConsultation') ? document.getElementById('technicalConsultation').checked : false
+            newsletter: document.getElementById('newsletter').checked,
+            catalogRequest: document.getElementById('catalogRequest').checked,
+            technicalConsultation: document.getElementById('technicalConsultation').checked
         },
         timestamp: new Date().toISOString(),
         source: 'website_contact_form'
     };
     
     // Add enquiry-specific data if applicable
-    if (document.getElementById('serviceType').value === 'enquiry' || document.getElementById('serviceType').value === 'quote') {
-        const productType = document.getElementById('productType');
-        const quantityNeeded = document.getElementById('quantityNeeded');
-        const quantityUnit = document.getElementById('quantityUnit');
-        const deliveryLocation = document.getElementById('deliveryLocation');
-        const timeframe = document.getElementById('timeframe');
-        const businessType = document.getElementById('businessType');
-        
+    if (document.getElementById('serviceType').value === 'enquiry') {
         data.enquiryDetails = {
-            productType: productType ? productType.value : '',
-            quantityNeeded: quantityNeeded ? quantityNeeded.value : '',
-            quantityUnit: quantityUnit ? quantityUnit.value : '',
-            deliveryLocation: deliveryLocation ? deliveryLocation.value.trim() : '',
-            timeframe: timeframe ? timeframe.value : '',
-            businessType: businessType ? businessType.value : ''
+            productType: document.getElementById('productType').value,
+            quantityNeeded: document.getElementById('quantityNeeded').value,
+            quantityUnit: document.getElementById('quantityUnit').value,
+            deliveryLocation: document.getElementById('deliveryLocation').value.trim(),
+            timeframe: document.getElementById('timeframe').value,
+            businessType: document.getElementById('businessType').value
         };
     }
     
@@ -633,39 +613,33 @@ function setSubmissionState(state) {
         case 'loading':
             form.classList.add('form-loading');
             submitBtn.disabled = true;
-            if (btnText) btnText.style.display = 'none';
-            if (btnLoading) btnLoading.style.display = 'flex';
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'flex';
             break;
             
         case 'success':
             form.classList.remove('form-loading');
             form.classList.add('form-success');
             submitBtn.disabled = false;
-            if (btnText) {
-                btnText.style.display = 'block';
-                btnText.textContent = 'Message Sent!';
-            }
-            if (btnLoading) btnLoading.style.display = 'none';
+            btnText.style.display = 'block';
+            btnLoading.style.display = 'none';
+            btnText.textContent = 'Message Sent!';
             break;
             
         case 'error':
             form.classList.remove('form-loading');
             submitBtn.disabled = false;
-            if (btnText) {
-                btnText.style.display = 'block';
-                btnText.textContent = 'Try Again';
-            }
-            if (btnLoading) btnLoading.style.display = 'none';
+            btnText.style.display = 'block';
+            btnLoading.style.display = 'none';
+            btnText.textContent = 'Try Again';
             break;
             
         default:
             form.classList.remove('form-loading', 'form-success');
             submitBtn.disabled = false;
-            if (btnText) {
-                btnText.style.display = 'block';
-                btnText.textContent = 'Send Message';
-            }
-            if (btnLoading) btnLoading.style.display = 'none';
+            btnText.style.display = 'block';
+            btnLoading.style.display = 'none';
+            btnText.textContent = 'Send Message';
     }
 }
 
@@ -813,6 +787,12 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
+
+// Initialize auto-save and restore on load
+document.addEventListener('DOMContentLoaded', function() {
+    setupAutoSave();
+    restoreFormData();
+});
 
 // Clear saved data on successful submission
 window.addEventListener('beforeunload', function() {
