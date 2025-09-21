@@ -24,11 +24,8 @@ document.getElementById('searchInput').addEventListener('input', function(e) {
 // Filter functionality
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', function() {
-    // Remove active class from all filter buttons
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    // Add active class to clicked button
     this.classList.add('active');
-    
     currentFilter = this.getAttribute('data-category');
     filterProducts();
   });
@@ -37,11 +34,8 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 // View toggle functionality
 document.querySelectorAll('.view-btn').forEach(btn => {
   btn.addEventListener('click', function() {
-    // Remove active class from all view buttons
     document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-    // Add active class to clicked button
     this.classList.add('active');
-    
     currentView = this.getAttribute('data-view');
     toggleView();
   });
@@ -66,7 +60,6 @@ function filterProducts() {
     
     if (matchesFilter && matchesSearch) {
       card.style.display = 'block';
-      // Add staggered animation
       card.style.animationDelay = `${visibleCount * 0.1}s`;
       visibleCount++;
     } else {
@@ -74,7 +67,6 @@ function filterProducts() {
     }
   });
 
-  // Show/hide no results message
   if (visibleCount === 0) {
     noResults.style.display = 'block';
   } else {
@@ -85,7 +77,6 @@ function filterProducts() {
 // Toggle view function
 function toggleView() {
   const productsGrid = document.getElementById('productsGrid');
-  
   if (currentView === 'list') {
     productsGrid.classList.add('list-view');
   } else {
@@ -102,7 +93,7 @@ function clearFilters() {
   filterProducts();
 }
 
-// Enhanced generateQuickViewContent function with real images
+// Generate quick view content
 function generateQuickViewContent(product) {
   return `
     <div class="quick-view-content">
@@ -145,7 +136,7 @@ function generateQuickViewContent(product) {
   `;
 }
 
-// Updated getProductData function with image URLs
+// Get product data
 function getProductData(productId) {
   const products = {
     'soybean-meal-doc': {
@@ -219,7 +210,7 @@ function getProductData(productId) {
       title: 'Defatted Soya Flour (Toasted)',
       category: 'Soya Flour',
       icon: '🍞',
-      imageUrl: '/img/Screenshot 2025-09-20 at 9.48.00 PM.png',
+      imageUrl: 'https://scratchfood.us/cdn/shop/articles/5b09d0d7549bc2ad6464860429c4d5da.png?v=1712002873',
       specs: ['48% Protein', 'Rich Flavor', 'Golden Color'],
       description: 'Toasted soya flour with enhanced flavor and improved digestibility for premium feed applications.',
       detailedSpecs: [
@@ -398,8 +389,10 @@ function openQuickView(productId) {
   document.body.style.overflow = 'hidden';
 }
 
-// Image zoom functionality
+// Enhanced image zoom with keyboard controls
 function openImageZoom(imageUrl, productTitle) {
+  currentZoom = 1;
+  
   const zoomModal = document.createElement('div');
   zoomModal.className = 'image-zoom-modal';
   zoomModal.innerHTML = `
@@ -407,14 +400,17 @@ function openImageZoom(imageUrl, productTitle) {
       <div class="zoom-modal-content" onclick="event.stopPropagation()">
         <div class="zoom-modal-header">
           <h3>${productTitle}</h3>
+          <div class="zoom-shortcuts">
+            <span>+/- to zoom • ESC to close</span>
+          </div>
           <button class="zoom-close" onclick="closeImageZoom()">&times;</button>
         </div>
         <div class="zoom-image-container">
           <img src="${imageUrl}" alt="${productTitle}" class="zoomed-image">
         </div>
         <div class="zoom-controls">
-          <button class="zoom-btn-control" onclick="zoomIn()">🔍+</button>
-          <button class="zoom-btn-control" onclick="zoomOut()">🔍-</button>
+          <button class="zoom-btn-control" onclick="zoomIn()">🔍+ (100%)</button>
+          <button class="zoom-btn-control" onclick="zoomOut()">🔍- (100%)</button>
           <button class="zoom-btn-control" onclick="resetZoom()">⟲ Reset</button>
         </div>
       </div>
@@ -434,13 +430,19 @@ function closeImageZoom() {
 }
 
 function zoomIn() {
-  currentZoom += 0.2;
-  updateZoom();
+  const maxZoom = 3;
+  if (currentZoom < maxZoom) {
+    currentZoom += 0.2;
+    updateZoom();
+  }
 }
 
 function zoomOut() {
-  currentZoom = Math.max(0.5, currentZoom - 0.2);
-  updateZoom();
+  const minZoom = 0.5;
+  if (currentZoom > minZoom) {
+    currentZoom = Math.max(minZoom, currentZoom - 0.2);
+    updateZoom();
+  }
 }
 
 function resetZoom() {
@@ -452,7 +454,17 @@ function updateZoom() {
   const image = document.querySelector('.zoomed-image');
   if (image) {
     image.style.transform = `scale(${currentZoom})`;
+    updateZoomButtons();
   }
+}
+
+function updateZoomButtons() {
+  const zoomLevel = Math.round(currentZoom * 100);
+  const zoomInBtn = document.querySelector('.zoom-btn-control[onclick="zoomIn()"]');
+  const zoomOutBtn = document.querySelector('.zoom-btn-control[onclick="zoomOut()"]');
+  
+  if (zoomInBtn) zoomInBtn.innerHTML = `🔍+ (${zoomLevel}%)`;
+  if (zoomOutBtn) zoomOutBtn.innerHTML = `🔍- (${zoomLevel}%)`;
 }
 
 // Close modal
@@ -470,11 +482,24 @@ window.addEventListener('click', function(event) {
   }
 });
 
-// Request quote functionality
+// Request quote - redirects to contact page
 function requestQuote(productId) {
-  showMessage(`Quote request submitted for ${productId}. We'll contact you soon!`, 'success');
-  console.log(`Quote requested for product: ${productId}`);
+  const productData = getProductData(productId);
+  
+  const quoteData = {
+    productId: productData.id,
+    productTitle: productData.title,
+    productCategory: productData.category,
+    timestamp: new Date().toISOString()
+  };
+  
+  sessionStorage.setItem('quoteRequest', JSON.stringify(quoteData));
+  showMessage(`Redirecting to contact page for ${productData.title} quote...`, 'success');
   closeModal();
+  
+  setTimeout(() => {
+    window.location.href = '/contact-us/contact.html';
+  }, 1000);
 }
 
 // View details functionality
@@ -641,24 +666,40 @@ function downloadCatalog() {
   showMessage('Catalog download will be available soon. Please contact us for product information.', 'info');
 }
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
+// Enhanced keyboard shortcuts with zoom
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeModal();
+    closeImageZoom();
+  }
+  
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+    document.getElementById('searchInput').focus();
+  }
+  
+  const imageZoomModal = document.querySelector('.image-zoom-modal');
+  if (imageZoomModal) {
+    switch(e.key) {
+      case '+':
+      case '=':
+        e.preventDefault();
+        zoomIn();
+        break;
+      case '-':
+        e.preventDefault();
+        zoomOut();
+        break;
+      case '0':
+        e.preventDefault();
+        resetZoom();
+        break;
     }
-  });
+  }
 });
 
-// Loading animation for page
+// Loading animation
 window.addEventListener('load', function() {
-  document.body.classList.add('loaded');
-  
   const productCards = document.querySelectorAll('.product-card');
   productCards.forEach((card, index) => {
     setTimeout(() => {
@@ -668,7 +709,21 @@ window.addEventListener('load', function() {
   });
 });
 
-// Add CSS animations
+// Initialize favorites
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(updateFavoriteIcons, 1000);
+});
+
+// Enhanced search with debounce
+let searchTimeout;
+document.getElementById('searchInput').addEventListener('input', function(e) {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    filterProducts();
+  }, 300);
+});
+
+// Add required CSS animations
 const animationStyles = document.createElement('style');
 animationStyles.textContent = `
   @keyframes slideIn {
@@ -681,69 +736,12 @@ animationStyles.textContent = `
     to { transform: translateX(100%); opacity: 0; }
   }
   
-  .toast-message {
-    transition: all 0.3s ease;
-  }
-  
-  .toast-message:hover {
-    opacity: 0.9;
-    transform: translateX(-5px);
+  .zoom-shortcuts {
+    font-size: 0.8rem;
+    color: #666;
+    opacity: 0.8;
   }
 `;
 document.head.appendChild(animationStyles);
-
-// Initialize favorites on load
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(updateFavoriteIcons, 1000);
-});
-
-// Scroll progress indicator
-function createScrollProgress() {
-  const progressBar = document.createElement('div');
-  progressBar.className = 'scroll-progress';
-  progressBar.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 3px;
-    background: linear-gradient(90deg, #4ade80, #22c55e);
-    z-index: 10001;
-    transition: width 0.1s ease;
-  `;
-  document.body.appendChild(progressBar);
-  
-  window.addEventListener('scroll', function() {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    progressBar.style.width = scrolled + '%';
-  });
-}
-
-// Initialize scroll progress
-document.addEventListener('DOMContentLoaded', createScrollProgress);
-
-// Enhanced search with debounce
-let searchTimeout;
-document.getElementById('searchInput').addEventListener('input', function(e) {
-  clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(() => {
-    filterProducts();
-  }, 300);
-});
-
-// Keyboard shortcuts
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeModal();
-    closeImageZoom();
-  }
-  
-  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-    e.preventDefault();
-    document.getElementById('searchInput').focus();
-  }
-});
 
 console.log('SM Agro Trades Products page loaded successfully!');
