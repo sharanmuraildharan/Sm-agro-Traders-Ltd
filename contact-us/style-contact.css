@@ -35,7 +35,7 @@ body {
 }
 
 .navbar.scrolled {
-  background: rgb(255, 255, 255);
+  background: rgb(217, 249, 212);
   padding: 0.5rem 0;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
@@ -175,7 +175,7 @@ body {
 /* Contact Section */
 .contact-section {
   padding: 6rem 0;
-  background: #313231;
+  background: #ffffff;
 }
 
 .contact-wrapper {
@@ -188,13 +188,16 @@ body {
 /* Contact Info */
 .contact-info h2 {
   font-size: 2.5rem;
-  color: #215600;
+  color: #000000;
   margin-bottom: 1rem;
+}
+.contact-header h2{
+color: #000000;
 }
 
 .contact-description {
   font-size: 1.1rem;
-  color: #fefefe;
+  color: #000000;
   margin-bottom: 3rem;
   line-height: 1.6;
 }
@@ -598,8 +601,8 @@ body {
 
 /* Footer */
 .footer {
-  background: #1a4500;
-  color: white;
+  background: rgb(217, 249, 212);
+  color: rgb(0, 0, 0);
   padding: 3rem 0 1rem;
 }
 
@@ -612,7 +615,7 @@ body {
 
 .footer-section h4 {
   margin-bottom: 1rem;
-  color: #4ade80;
+  color: #000000;
 }
 
 .footer-section ul {
@@ -624,7 +627,7 @@ body {
 }
 
 .footer-section ul li a {
-  color: white;
+  color: black;
   text-decoration: none;
   opacity: 0.8;
   transition: opacity 0.3s ease;
