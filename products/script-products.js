@@ -153,7 +153,7 @@ function getProductData(productId) {
       title: 'Soybean Meal (DOC) - 46% Protein',
       category: 'Soybean Meal',
       icon: '🌾',
-      imageUrl: 'https://nutrimake.in/wp-content/uploads/2024/12/soya-doc-500x500-2.webp', // Replace with your actual image URL
+      imageUrl: 'https://nutrimake.in/wp-content/uploads/2024/12/soya-doc-500x500-2.webp',
       specs: ['46% Protein', 'Non-GMO', 'Premium Grade'],
       description: 'High-quality defatted soybean meal perfect for poultry and livestock feed with consistent protein content.',
       detailedSpecs: [
@@ -175,7 +175,7 @@ function getProductData(productId) {
       title: 'Indian Non-GMO Hi-Pro Soybean Meal',
       category: 'Soybean Meal',
       icon: '🏆',
-      imageUrl: 'https://moepl.com/wp-content/uploads/2022/10/2-2-2048x1365.jpg', // Replace with your actual image URL
+      imageUrl: 'https://moepl.com/wp-content/uploads/2022/10/2-2-2048x1365.jpg',
       specs: ['48-50% Protein', 'Non-GMO', 'Hi-Pro Grade'],
       description: 'Premium high-protein soybean meal with enhanced nutritional value for superior feed performance.',
       detailedSpecs: [
@@ -197,7 +197,7 @@ function getProductData(productId) {
       title: 'Defatted Soya Flour (Untoasted)',
       category: 'Soya Flour',
       icon: '🥛',
-      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/defatted-soya-flour-untoasted-1730974470-7672990.jpg', // Replace with your actual image URL
+      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/defatted-soya-flour-untoasted-1730974470-7672990.jpg',
       specs: ['50% Protein', 'Light Color', 'Fine Texture'],
       description: 'Light-colored, fine-textured soya flour ideal for specialized feed applications requiring mild flavor.',
       detailedSpecs: [
@@ -219,7 +219,7 @@ function getProductData(productId) {
       title: 'Defatted Soya Flour (Toasted)',
       category: 'Soya Flour',
       icon: '🍞',
-      imageUrl: '/img/Screenshot 2025-09-20 at 9.48.00 PM.png', // Replace with your actual image URL
+      imageUrl: '/img/Screenshot 2025-09-20 at 9.48.00 PM.png',
       specs: ['48% Protein', 'Rich Flavor', 'Golden Color'],
       description: 'Toasted soya flour with enhanced flavor and improved digestibility for premium feed applications.',
       detailedSpecs: [
@@ -241,7 +241,7 @@ function getProductData(productId) {
       title: 'Full Fat Soya Flour',
       category: 'Soya Flour',
       icon: '🌟',
-      imageUrl: 'https://2.wlimg.com/product_images/bc-full/dir_39/1141076/full-fat-soya-flour-1818060.jpg', // Replace with your actual image URL
+      imageUrl: 'https://2.wlimg.com/product_images/bc-full/dir_39/1141076/full-fat-soya-flour-1818060.jpg',
       specs: ['38% Protein', '18% Fat', 'High Energy'],
       description: 'Energy-rich full-fat soya flour providing both protein and essential fatty acids for optimal nutrition.',
       detailedSpecs: [
@@ -263,7 +263,7 @@ function getProductData(productId) {
       title: 'Defatted Soya Grits (Untoasted)',
       category: 'Soya Grits',
       icon: '🌰',
-      imageUrl: 'https://img500.exportersindia.com/product_images/bc-500/2023/9/5998964/soyabean-grit-1694847295-7084078.jpeg', // Replace with your actual image URL
+      imageUrl: 'https://img500.exportersindia.com/product_images/bc-500/2023/9/5998964/soyabean-grit-1694847295-7084078.jpeg',
       specs: ['50% Protein', 'Coarse Texture', 'Natural'],
       description: 'Coarsely ground soya grits providing texture and nutrition for specialized feed formulations.',
       detailedSpecs: [
@@ -284,7 +284,8 @@ function getProductData(productId) {
       id: 'grits-toasted',
       title: 'Soya Grits Defatted (Toasted)',
       category: 'Soya Grits',
-      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/soya-grits-defatted-toasted-1730974188-7673005.jpeg', // Replace with your actual image URL
+      icon: '🔥',
+      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/soya-grits-defatted-toasted-1730974188-7673005.jpeg',
       specs: ['48% Protein', 'Enhanced Flavor', 'Improved Digestibility'],
       description: 'Toasted soya grits with improved palatability and digestibility for enhanced feed performance.',
       detailedSpecs: [
@@ -305,7 +306,8 @@ function getProductData(productId) {
       id: 'soya-flakes',
       title: 'Soya Flakes',
       category: 'Specialty Products',
-      imageUrl: 'https://seasonsinternational.in/wp-content/uploads/2024/06/untoasted-defatted-soya-flakes.webp', // Replace with your actual image URL
+      icon: '🥣',
+      imageUrl: 'https://seasonsinternational.in/wp-content/uploads/2024/06/untoasted-defatted-soya-flakes.webp',
       specs: ['45% Protein', 'Rolled Texture', 'Easy Mixing'],
       description: 'Rolled soya flakes providing excellent mixability and uniform distribution in feed formulations.',
       detailedSpecs: [
@@ -327,7 +329,7 @@ function getProductData(productId) {
       title: 'TVP Soya Granules',
       category: 'Specialty Products',
       icon: '🎯',
-      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/tvp-soya-granules-1730975633-7672730.jpeg', // Replace with your actual image URL
+      imageUrl: 'https://2.wlimg.com/product_images/bc-full/2024/11/14039868/tvp-soya-granules-1730975633-7672730.jpeg',
       specs: ['52% Protein', 'Textured', 'High Absorption'],
       description: 'Textured vegetable protein granules providing superior protein content and excellent water absorption.',
       detailedSpecs: [
@@ -348,7 +350,8 @@ function getProductData(productId) {
       id: 'soya-chunks',
       title: 'Soya Chunks',
       category: 'Specialty Products',
-      imageUrl: 'https://uploads-ssl.webflow.com/652fa48dbb0bdb53c30277ac/65302c2a0db5313db4f7bd53_645a38c6dac5ab4121eec82d_6420b003f2602ac805f295d5_Untitled%252520design%252520(37).png', // Replace with your actual image URL
+      icon: '🧊',
+      imageUrl: 'https://uploads-ssl.webflow.com/652fa48dbb0bdb53c30277ac/65302c2a0db5313db4f7bd53_645a38c6dac5ab4121eec82d_6420b003f2602ac805f295d5_Untitled%252520design%252520(37).png',
       specs: ['50% Protein', 'Large Pieces', 'Meat-like Texture'],
       description: 'Large soya chunks providing substantial texture and protein for specialized feed applications.',
       detailedSpecs: [
@@ -372,7 +375,7 @@ function getProductData(productId) {
     title: 'Product Details',
     category: 'General',
     icon: '🌱',
-    imageUrl: '/img/products/default-product.jpg', // Replace with your actual default image URL
+    imageUrl: '/img/products/default-product.jpg',
     specs: ['Premium Quality', 'Non-GMO'],
     description: 'High-quality soy product for feed applications.',
     detailedSpecs: ['Contact us for detailed specifications'],
