@@ -37,10 +37,10 @@ function loadQuoteRequest() {
             if (productTypeField) {
                 // Try to match the product category to dropdown options
                 const categoryMapping = {
-                    'Soybean Meal': 'soybean-meal',
-                    'Soya Flour': 'soya-flour', 
+                    'Soybean Meal': 'soybean-meal-46',
+                    'Soya Flour': 'soya-flour-untoasted', 
                     'Soya Grits': 'soya-grits',
-                    'Specialty Products': 'specialty'
+                    'Specialty Products': 'tvp-granules'
                 };
                 
                 const mappedValue = categoryMapping[data.productCategory];
@@ -192,7 +192,10 @@ window.addEventListener('scroll', function() {
 // Initialize form functionality
 function initializeForm() {
     // Set default values
-    document.getElementById('quantityUnit').value = 'kg';
+    const quantityUnit = document.getElementById('quantityUnit');
+    if (quantityUnit) {
+        quantityUnit.value = 'kg';
+    }
     
     // Initialize character count
     updateCharacterCount();
@@ -255,7 +258,7 @@ function setupEventListeners() {
 function handleServiceTypeChange() {
     const selectedService = serviceTypeSelect.value;
     
-    if (selectedService === 'enquiry') {
+    if (selectedService === 'enquiry' || selectedService === 'quote') {
         enquiryFields.style.display = 'block';
         // Make enquiry fields required
         const enquiryInputs = enquiryFields.querySelectorAll('input[required], select[required]');
@@ -264,9 +267,13 @@ function handleServiceTypeChange() {
         });
         
         // Update required fields
-        document.getElementById('productType').setAttribute('required', 'required');
-        document.getElementById('quantityNeeded').setAttribute('required', 'required');
-        document.getElementById('quantityUnit').setAttribute('required', 'required');
+        const productType = document.getElementById('productType');
+        const quantityNeeded = document.getElementById('quantityNeeded');
+        const quantityUnit = document.getElementById('quantityUnit');
+        
+        if (productType) productType.setAttribute('required', 'required');
+        if (quantityNeeded) quantityNeeded.setAttribute('required', 'required');
+        if (quantityUnit) quantityUnit.setAttribute('required', 'required');
         
         // Animate the appearance
         enquiryFields.style.opacity = '0';
@@ -296,8 +303,8 @@ function updateMessagePlaceholder(serviceType) {
         'enquiry': 'Please provide details about your product requirements, intended use, any specific nutritional requirements, and delivery preferences...',
         'quote': 'Please specify the products you need, quantities, delivery location, and any special requirements for your quote...',
         'technical': 'Describe your current feed formulation challenges, livestock type, and what technical assistance you need...',
-        'partnership': 'Tell us about your business, distribution capabilities, and how you\'d like to partner with SM Agro Trades...',
-        'complaint': 'Please describe the issue you\'ve experienced, order details (if applicable), and what resolution you\'re seeking...',
+        'partnership': 'Tell us about your business, distribution capabilities, and how you would like to partner with SM Agro Trades...',
+        'complaint': 'Please describe the issue you have experienced, order details (if applicable), and what resolution you are seeking...',
         'other': 'Please provide details about your inquiry or how we can assist you...'
     };
     
@@ -331,40 +338,46 @@ function updateCharacterCount() {
 function setupValidation() {
     // Email validation pattern
     const emailInput = document.getElementById('email');
-    emailInput.addEventListener('input', function() {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (this.value && !emailPattern.test(this.value)) {
-            setFieldError(this, 'Please enter a valid email address');
-        } else {
-            clearFieldError(this);
-        }
-    });
+    if (emailInput) {
+        emailInput.addEventListener('input', function() {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (this.value && !emailPattern.test(this.value)) {
+                setFieldError(this, 'Please enter a valid email address');
+            } else {
+                clearFieldError(this);
+            }
+        });
+    }
     
     // Phone validation
     const phoneInput = document.getElementById('phone');
-    phoneInput.addEventListener('input', function() {
-        // Remove any non-digit characters except + and spaces
-        let value = this.value.replace(/[^\d+\s-()]/g, '');
-        this.value = value;
-        
-        // Basic phone validation
-        if (value.length < 10 && value.length > 0) {
-            setFieldError(this, 'Please enter a valid phone number');
-        } else {
-            clearFieldError(this);
-        }
-    });
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            // Remove any non-digit characters except + and spaces
+            let value = this.value.replace(/[^\d+\s-()]/g, '');
+            this.value = value;
+            
+            // Basic phone validation
+            if (value.length < 10 && value.length > 0) {
+                setFieldError(this, 'Please enter a valid phone number');
+            } else {
+                clearFieldError(this);
+            }
+        });
+    }
     
     // Quantity validation
     const quantityInput = document.getElementById('quantityNeeded');
-    quantityInput.addEventListener('input', function() {
-        const value = parseFloat(this.value);
-        if (value <= 0 && this.value !== '') {
-            setFieldError(this, 'Quantity must be greater than 0');
-        } else {
-            clearFieldError(this);
-        }
-    });
+    if (quantityInput) {
+        quantityInput.addEventListener('input', function() {
+            const value = parseFloat(this.value);
+            if (value <= 0 && this.value !== '') {
+                setFieldError(this, 'Quantity must be greater than 0');
+            } else {
+                clearFieldError(this);
+            }
+        });
+    }
 }
 
 // Validate individual field
@@ -505,13 +518,16 @@ async function handleFormSubmission(e) {
     formData = collectFormData();
     
     try {
-        // Simulate API call (replace with actual API endpoint)
+        // Submit form data via Netlify function
         await submitFormData(formData);
         
         // Success
         setSubmissionState('success');
         showPopup('success', 'Message Sent Successfully!', 
-            'Thank you for contacting SM Agro Trades. We\'ve received your message and will respond within 2 hours during business hours.');
+            'Thank you for contacting SM Agro Trades. We have received your message and will respond within 2 hours during business hours. You should also receive a confirmation email shortly.');
+        
+        // Clear saved form data on success
+        clearSavedFormData();
         
         // Reset form after successful submission
         setTimeout(() => {
@@ -522,9 +538,39 @@ async function handleFormSubmission(e) {
         console.error('Form submission error:', error);
         setSubmissionState('error');
         showPopup('error', 'Submission Failed', 
-            'There was an error sending your message. Please try again or contact us directly via email.');
+            error.message || 'There was an error sending your message. Please try again or contact us directly at sale.smagrotraders@gmail.com');
     } finally {
         isSubmitting = false;
+    }
+}
+
+// Submit form data to Netlify function
+async function submitFormData(data) {
+    try {
+        const response = await fetch('/.netlify/functions/submit-contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || `Server error: ${response.status}`);
+        }
+
+        return result;
+    } catch (error) {
+        // Handle different types of errors
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            throw new Error('Network error. Please check your internet connection and try again.');
+        } else if (error.message.includes('404')) {
+            throw new Error('Service temporarily unavailable. Please contact us directly at sale.smagrotraders@gmail.com');
+        } else {
+            throw error;
+        }
     }
 }
 
@@ -565,43 +611,36 @@ function collectFormData() {
             message: document.getElementById('message').value.trim()
         },
         additionalOptions: {
-            newsletter: document.getElementById('newsletter').checked,
-            catalogRequest: document.getElementById('catalogRequest').checked,
-            technicalConsultation: document.getElementById('technicalConsultation').checked
+            newsletter: document.getElementById('newsletter') ? document.getElementById('newsletter').checked : false,
+            catalogRequest: document.getElementById('catalogRequest') ? document.getElementById('catalogRequest').checked : false,
+            technicalConsultation: document.getElementById('technicalConsultation') ? document.getElementById('technicalConsultation').checked : false
         },
         timestamp: new Date().toISOString(),
-        source: 'website_contact_form'
+        source: 'website_contact_form',
+        userAgent: navigator.userAgent,
+        referrer: document.referrer || 'direct'
     };
     
     // Add enquiry-specific data if applicable
-    if (document.getElementById('serviceType').value === 'enquiry') {
+    if (document.getElementById('serviceType').value === 'enquiry' || document.getElementById('serviceType').value === 'quote') {
+        const productType = document.getElementById('productType');
+        const quantityNeeded = document.getElementById('quantityNeeded');
+        const quantityUnit = document.getElementById('quantityUnit');
+        const deliveryLocation = document.getElementById('deliveryLocation');
+        const timeframe = document.getElementById('timeframe');
+        const businessType = document.getElementById('businessType');
+        
         data.enquiryDetails = {
-            productType: document.getElementById('productType').value,
-            quantityNeeded: document.getElementById('quantityNeeded').value,
-            quantityUnit: document.getElementById('quantityUnit').value,
-            deliveryLocation: document.getElementById('deliveryLocation').value.trim(),
-            timeframe: document.getElementById('timeframe').value,
-            businessType: document.getElementById('businessType').value
+            productType: productType ? productType.value : '',
+            quantityNeeded: quantityNeeded ? quantityNeeded.value : '',
+            quantityUnit: quantityUnit ? quantityUnit.value : '',
+            deliveryLocation: deliveryLocation ? deliveryLocation.value.trim() : '',
+            timeframe: timeframe ? timeframe.value : '',
+            businessType: businessType ? businessType.value : ''
         };
     }
     
     return data;
-}
-
-// Submit form data (simulated API call)
-async function submitFormData(data) {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Log the form data (in production, this would be sent to your backend)
-    console.log('Form submitted with data:', data);
-    
-    // Simulate success/failure
-    if (Math.random() > 0.1) { // 90% success rate
-        return { success: true, message: 'Form submitted successfully' };
-    } else {
-        throw new Error('Simulated network error');
-    }
 }
 
 // Set submission state
@@ -613,33 +652,39 @@ function setSubmissionState(state) {
         case 'loading':
             form.classList.add('form-loading');
             submitBtn.disabled = true;
-            btnText.style.display = 'none';
-            btnLoading.style.display = 'flex';
+            if (btnText) btnText.style.display = 'none';
+            if (btnLoading) btnLoading.style.display = 'flex';
             break;
             
         case 'success':
             form.classList.remove('form-loading');
             form.classList.add('form-success');
             submitBtn.disabled = false;
-            btnText.style.display = 'block';
-            btnLoading.style.display = 'none';
-            btnText.textContent = 'Message Sent!';
+            if (btnText) {
+                btnText.style.display = 'block';
+                btnText.textContent = 'Message Sent!';
+            }
+            if (btnLoading) btnLoading.style.display = 'none';
             break;
             
         case 'error':
             form.classList.remove('form-loading');
             submitBtn.disabled = false;
-            btnText.style.display = 'block';
-            btnLoading.style.display = 'none';
-            btnText.textContent = 'Try Again';
+            if (btnText) {
+                btnText.style.display = 'block';
+                btnText.textContent = 'Try Again';
+            }
+            if (btnLoading) btnLoading.style.display = 'none';
             break;
             
         default:
             form.classList.remove('form-loading', 'form-success');
             submitBtn.disabled = false;
-            btnText.style.display = 'block';
-            btnLoading.style.display = 'none';
-            btnText.textContent = 'Send Message';
+            if (btnText) {
+                btnText.style.display = 'block';
+                btnText.textContent = 'Send Message';
+            }
+            if (btnLoading) btnLoading.style.display = 'none';
     }
 }
 
@@ -730,9 +775,15 @@ document.addEventListener('keydown', function(e) {
 
 // Auto-save form data to localStorage
 function autoSaveFormData() {
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    localStorage.setItem('sm_agro_contact_form', JSON.stringify(data));
+    if (isSubmitting) return; // Don't auto-save while submitting
+    
+    try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        localStorage.setItem('sm_agro_contact_form', JSON.stringify(data));
+    } catch (error) {
+        console.warn('Could not save form data:', error);
+    }
 }
 
 // Restore form data from localStorage
@@ -756,6 +807,10 @@ function restoreFormData() {
             if (data.serviceType) {
                 handleServiceTypeChange();
             }
+            
+            // Update character count if message was restored
+            updateCharacterCount();
+            
         } catch (e) {
             console.warn('Could not restore form data:', e);
         }
@@ -764,7 +819,11 @@ function restoreFormData() {
 
 // Clear saved form data
 function clearSavedFormData() {
-    localStorage.removeItem('sm_agro_contact_form');
+    try {
+        localStorage.removeItem('sm_agro_contact_form');
+    } catch (error) {
+        console.warn('Could not clear saved form data:', error);
+    }
 }
 
 // Setup auto-save
@@ -787,12 +846,6 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
-
-// Initialize auto-save and restore on load
-document.addEventListener('DOMContentLoaded', function() {
-    setupAutoSave();
-    restoreFormData();
-});
 
 // Clear saved data on successful submission
 window.addEventListener('beforeunload', function() {
