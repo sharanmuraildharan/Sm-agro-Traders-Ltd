@@ -1,0 +1,8 @@
+{
+  "name": "sm-agro-trades-ltd",
+  "version": "1.0.0",
+  "dependencies": {
+    "nodemailer": "^6.9.7",
+    "pg": "^8.16.3"
+  }
+}

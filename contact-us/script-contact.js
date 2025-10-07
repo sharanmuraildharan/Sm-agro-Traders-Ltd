@@ -499,78 +499,44 @@ function getNextFormField(currentField) {
 // Handle form submission
 async function handleFormSubmission(e) {
     e.preventDefault();
-    
+
     if (isSubmitting) return;
-    
-    // Validate entire form
+
     const isFormValid = validateForm();
-    
+
     if (!isFormValid) {
         showPopup('error', 'Validation Error', 'Please correct the errors in the form before submitting.');
         return;
     }
-    
-    // Start submission process
+
     isSubmitting = true;
     setSubmissionState('loading');
-    
-    // Collect form data
-    formData = collectFormData();
-    
-    try {
-        // Submit form data via Netlify function
-        await submitFormData(formData);
-        
-        // Success
-        setSubmissionState('success');
-        showPopup('success', 'Message Sent Successfully!', 
-            'Thank you for contacting SM Agro Trades. We have received your message and will respond within 2 hours during business hours. You should also receive a confirmation email shortly.');
-        
-        // Clear saved form data on success
-        clearSavedFormData();
-        
-        // Reset form after successful submission
-        setTimeout(() => {
-            resetForm();
-        }, 2000);
-        
-    } catch (error) {
-        console.error('Form submission error:', error);
-        setSubmissionState('error');
-        showPopup('error', 'Submission Failed', 
-            error.message || 'There was an error sending your message. Please try again or contact us directly at sale.smagrotraders@gmail.com');
-    } finally {
-        isSubmitting = false;
-    }
-}
 
-// Submit form data to Netlify function
-async function submitFormData(data) {
+    const data = collectFormData();
+
     try {
         const response = await fetch('/.netlify/functions/submit-contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         });
 
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.error || `Server error: ${response.status}`);
-        }
-
-        return result;
-    } catch (error) {
-        // Handle different types of errors
-        if (error.name === 'TypeError' && error.message.includes('fetch')) {
-            throw new Error('Network error. Please check your internet connection and try again.');
-        } else if (error.message.includes('404')) {
-            throw new Error('Service temporarily unavailable. Please contact us directly at sale.smagrotraders@gmail.com');
+        if (response.ok) {
+            setSubmissionState('success');
+            showPopup('success', 'Message Sent!', 'Thank you for contacting us. We will get back to you shortly.');
+            resetForm();
+            clearSavedFormData();
         } else {
-            throw error;
+            throw new Error('Server error');
         }
+    } catch (error) {
+        setSubmissionState('error');
+        showPopup('error', 'Submission Failed', 'Could not send your message. Please try again later.');
+        console.error('Submission error:', error);
+    } finally {
+        isSubmitting = false;
     }
 }
 
